@@ -27,3 +27,15 @@ function createStore() {
     dispatch,
   };
 }
+
+function combineReducers(reducers) {
+  const keys = Object.keys(reducers);
+  return function (state, action) {
+    state = state || {};
+    var next = {};
+    keys.forEach(function (key) {
+      next[key] = reducers[key](state[key], action);
+    });
+    return next;
+  };
+}
