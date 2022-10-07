@@ -7,7 +7,7 @@ function step3() {
       case "DECREASE":
         return state - 1;
       default:
-        return satte;
+        return state;
     }
   };
 
