@@ -1,6 +1,3 @@
-const increaseAction = { type: "INCREASE" };
-const decreaseAction = { type: "DECREASE" };
-
 function step1() {
   const countReducer = (state, action) => {
     state = state ? state : 0;
@@ -21,11 +18,11 @@ function step1() {
   });
 
   document.querySelector("#step1 .increase").addEventListener("click", () => {
-    store.dispatch(increaseAction);
+    store.dispatch(increaseAction());
   });
 
   document.querySelector("#step1 .decrease").addEventListener("click", () => {
-    store.dispatch(decreaseAction);
+    store.dispatch(decreaseAction());
   });
 }
 
