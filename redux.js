@@ -51,3 +51,19 @@ function bindActionCreators(actionCreators, dispatch) {
   });
   return bounded;
 }
+
+function applyMiddleware(middleware) {
+  return function (createStore) {
+    return function (reducer) {
+      var store = createStore(reducer);
+
+      return {
+        getState: store.getState,
+        subscribe: store.subscribe,
+        dispatch: function (action) {
+          return middleware(store)(store.dispatch)(action);
+        },
+      };
+    };
+  };
+}
