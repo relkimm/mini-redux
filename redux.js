@@ -39,3 +39,15 @@ function combineReducers(reducers) {
     return next;
   };
 }
+
+function bindActionCreators(actionCreators, dispatch) {
+  var bounded = {};
+  Object.keys(actionCreators).forEach(function (key) {
+    var actionCreator = actionCreators[key];
+    bounded[key] = function () {
+      var args = Array.prototype.slice.call(arguments);
+      dispatch(actionCreator.apply(null, args));
+    };
+  });
+  return bounded;
+}
