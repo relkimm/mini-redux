@@ -12,14 +12,26 @@ function step2() {
     }
   };
 
+  const usernameReducer = (state, action) => {
+    state = state ? state : "";
+    switch (action.type) {
+      case "CHANGE":
+        return action.payload;
+      default:
+        return state;
+    }
+  };
+
   const reducer = combineReducers({
     count: countReducer,
+    username: usernameReducer,
   });
 
   const store = createStore(reducer);
   store.subscribe(() => {
     const state = store.getState();
     document.querySelector("#step2 .count").innerHTML = state.count;
+    document.querySelector("#step2 .username").innerHTML = state.username;
   });
 
   document.querySelector("#step2 .increase").addEventListener("click", () => {
@@ -28,6 +40,13 @@ function step2() {
 
   document.querySelector("#step2 .decrease").addEventListener("click", () => {
     store.dispatch(decreaseAction());
+  });
+
+  document.querySelector("#step2 input").addEventListener("input", (event) => {
+    store.dispatch({
+      type: "CHANGE",
+      payload: event.target.value,
+    });
   });
 }
 
